@@ -1,7 +1,6 @@
 const {URL} = require('url');
 const https = require('https');
 const R = require('ramda');
-var jsonToMd = require('json-to-markdown');
 
 const httpsRequest = (httpConfig, httpBody) => 
     new Promise((resolve, reject)=>{
