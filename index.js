@@ -1,6 +1,7 @@
 const {URL} = require('url');
 const https = require('https');
 const R = require('ramda');
+var jsonToMd = require('json-to-markdown');
 
 const httpsRequest = (httpConfig, httpBody) => 
     new Promise((resolve, reject)=>{
@@ -50,7 +51,8 @@ const stockDataFiltered = R.pick([
 const stockDataFormatted = R.pipe(
     stockDataFiltered,
     R.toPairs,
-    R.reduce((acc, [k, v])=>`${acc}${k} : ${v}\n`, '')
+    R.map(([k, v])=> `${k} : ${v}`),
+    R.join(' | ')
 )
 
 exports.handler = async ({data:{response_url, text}}) => {
